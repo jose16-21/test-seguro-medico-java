@@ -20,6 +20,7 @@ import javax.swing.table.TableCellRenderer;
 import org.json.JSONException;
 import org.json.JSONObject;
 import static seguro.modelos.a.readJsonFromUrl;
+      import java.text.SimpleDateFormat;
 
 /**
  *
@@ -71,16 +72,17 @@ public class ConsultasAfiliados extends javax.swing.JInternalFrame {
     private void consultarAfiliados(String codigo, String fecha) throws IOException, JSONException {
 
         try {
-            JSONObject json = readJsonFromUrl("https://localhost:5001/api/Java/2525/2020-02-162022:04:05");
+            JSONObject json = readJsonFromUrl("http://localhost:54335/api/Java/"+ codigo+"/"+fecha);
 
             //nombres = json.get("nombres").toString();
            // apellidos = json.get("apellidos").toString();
            // direccion = json.get("direccion").toString();
           //  telefono = json.get("telefono").toString();
-
+          JOptionPane.showMessageDialog(this,json.toString());
             System.out.println(json);
 
         } catch (IOException ex) {
+            System.out.println(ex.getMessage());
             Logger.getLogger(ConsultasAfiliados.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Ocurrió un eror: " + ex.getMessage());
 
@@ -364,7 +366,10 @@ public class ConsultasAfiliados extends javax.swing.JInternalFrame {
             return;
         } else {
             try {
-                consultarAfiliados(txtCodigoPaciente.getText().toString(), "");
+                 SimpleDateFormat dcn = new SimpleDateFormat("yyyy-MM-dd");
+    String date = dcn.format(txtFechaNacimiento.getDate() );
+    
+                consultarAfiliados(txtCodigoPaciente.getText().toString(), date);
             } catch (IOException ex) {
                 Logger.getLogger(ConsultasAfiliados.class.getName()).log(Level.SEVERE, null, ex);
             } catch (JSONException ex) {
