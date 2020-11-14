@@ -131,7 +131,6 @@ public class ConsultasAfiliados extends javax.swing.JInternalFrame {
         limpiarTabla();
 
         mdlTblAfiliados.setNumRows(1);
-
         mdlTblAfiliados.setValueAt("1", 0, 0);
         mdlTblAfiliados.setValueAt(estado, 0, 1);
         mdlTblAfiliados.setValueAt(monto, 0, 2);

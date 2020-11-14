@@ -9,14 +9,21 @@ package seguro.gui;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-
+import org.json.JSONException;
+import org.json.JSONObject;
+import static seguro.modelos.a.readJsonFromUrl;
 /**
  *
  * @author A
@@ -32,7 +39,11 @@ public class ConsultasProveedores extends javax.swing.JInternalFrame {
             return false;
         }
     };
-    
+    String nit;
+    String codigo;
+    String respuesta;
+    String FechaCobertura;
+    String FechaConsulta;
      
     public ConsultasProveedores() {
         initComponents();
@@ -307,6 +318,7 @@ public class ConsultasProveedores extends javax.swing.JInternalFrame {
                
             }       
         }); 
+       
     }
     
     
@@ -329,9 +341,51 @@ public class ConsultasProveedores extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tblProveedoresMouseClicked
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        // TODO add your handling code here:
+        
+        if(txtNitProveedor.getText().toString().equals("")){
+            JOptionPane.showMessageDialog(this, "Ingrese datos no puede ser vacio");
+         return ;   
+        }else{
+            try{
+                  SimpleDateFormat dcn = new SimpleDateFormat("yyyy-MM-dd");
+                String nacimiento = dcn.format(txtFechaNacimiento.getDate() );
+                String cobertura = dcn.format(txtFechaCobertura.getDate() );
+                                
+                 consultarProveedores(txtNitProveedor.getText().toString(), txtCodigoPaciente.getText().toString(),nacimiento,cobertura);
+            } catch (IOException ex) {
+                Logger.getLogger(ConsultasProveedores.class.getName()).log(Level.SEVERE, null, ex);
+            } catch(JSONException ex){
+            Logger.getLogger(ConsultasProveedores.class.getName()).log(Level.SEVERE,null,ex);
+            }            
+           // cargaModelTabla();
+        }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
+    void cargaModelTabla(){
+    mdlTblProveedores.setNumRows(1);
+    mdlTblProveedores.setValueAt(nit, 0, 0);
+    mdlTblProveedores.setValueAt(codigo, 0, 1);
+    mdlTblProveedores.setValueAt(FechaCobertura, 0, 2);
+    mdlTblProveedores.setValueAt(respuesta, 0, 3);
+    mdlTblProveedores.setValueAt(FechaConsulta, 0, 4);
+                    
+    }
+    private void consultarProveedores(String Nit, String Codigo, String Nacimiento, String Cobertura )throws IOException, JSONException {
+        try {
+             JSONObject json = readJsonFromUrl("http://localhost:54335/api/Java/"+ Nit+"/"+Codigo+"/"+Nacimiento +"/"+Cobertura);
+ JOptionPane.showMessageDialog(this,json.toString());
+             System.out.println(json);
+    } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+            Logger.getLogger(ConsultasProveedores.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Ocurrió un eror: " + ex.getMessage());
+
+        } catch (JSONException ex) {
+            Logger.getLogger(ConsultasProveedores.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Ocurrió un eror: " + ex.getMessage());
+
+        }
+    }
     private void txtNitProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNitProveedorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNitProveedorActionPerformed
