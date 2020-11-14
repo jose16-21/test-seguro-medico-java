@@ -71,7 +71,7 @@ public class ConsultasAfiliados extends javax.swing.JInternalFrame {
     private void consultarAfiliados(String codigo, String fecha) throws IOException, JSONException {
 
         try {
-            JSONObject json = readJsonFromUrl("http://localhost:5001/api/Java/2525/2020-02-162022:04:05");
+            JSONObject json = readJsonFromUrl("https://localhost:5001/api/Java/2525/2020-02-162022:04:05");
 
             //nombres = json.get("nombres").toString();
            // apellidos = json.get("apellidos").toString();
