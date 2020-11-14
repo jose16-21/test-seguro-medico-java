@@ -74,19 +74,18 @@ public class ConsultasAfiliados extends javax.swing.JInternalFrame {
         try {
             JSONObject json = readJsonFromUrl("http://localhost:54335/api/Java/"+ codigo+"/"+fecha);
 
-<<<<<<< HEAD
+
             //nombres = json.get("nombres").toString();
            // apellidos = json.get("apellidos").toString();
            // direccion = json.get("direccion").toString();
           //  telefono = json.get("telefono").toString();
           JOptionPane.showMessageDialog(this,json.toString());
-=======
+
             estado = json.get("estado").toString();
             monto = json.get("monto").toString();
             acumulado = json.get("acumulado").toString();
             pendiente = json.get("pendiente").toString();
 
->>>>>>> 064e67ccc77abca3c1d36e3d335fab5d2438e476
             System.out.println(json);
 
         } catch (IOException ex) {
@@ -374,14 +373,11 @@ public class ConsultasAfiliados extends javax.swing.JInternalFrame {
             return;
         } else {
             try {
-<<<<<<< HEAD
                  SimpleDateFormat dcn = new SimpleDateFormat("yyyy-MM-dd");
-    String date = dcn.format(txtFechaNacimiento.getDate() );
+                String date = dcn.format(txtFechaNacimiento.getDate() );
     
                 consultarAfiliados(txtCodigoPaciente.getText().toString(), date);
-=======
-                consultarAfiliados("", "");
->>>>>>> 064e67ccc77abca3c1d36e3d335fab5d2438e476
+
             } catch (IOException ex) {
                 Logger.getLogger(ConsultasAfiliados.class.getName()).log(Level.SEVERE, null, ex);
             } catch (JSONException ex) {
