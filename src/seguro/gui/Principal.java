@@ -15,6 +15,7 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);   
         btnVentas.requestFocus();
+ 
     }
 
     @SuppressWarnings("unchecked")

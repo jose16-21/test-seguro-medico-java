@@ -35,16 +35,16 @@ public class ConsultasAfiliados extends javax.swing.JInternalFrame {
     };
 
     TableCellRenderer rendererFromHeader;
-    String nombres;
-    String apellidos;
-    String direccion;
-    String telefono;
+    String estado;
+    String monto;
+    String acumulado;
+    String pendiente;
 
     public ConsultasAfiliados() {
         initComponents();
         cargarColumnasTabla();
         jProgressBarPersonas.setVisible(false);
-        
+
         txtCodigoPaciente.setText("");
         //cargarModeloTabla();
     }
@@ -73,10 +73,10 @@ public class ConsultasAfiliados extends javax.swing.JInternalFrame {
         try {
             JSONObject json = readJsonFromUrl("https://localhost:5001/api/Java/2525/2020-02-162022:04:05");
 
-            //nombres = json.get("nombres").toString();
-           // apellidos = json.get("apellidos").toString();
-           // direccion = json.get("direccion").toString();
-          //  telefono = json.get("telefono").toString();
+            estado = json.get("estado").toString();
+            monto = json.get("monto").toString();
+            acumulado = json.get("acumulado").toString();
+            pendiente = json.get("pendiente").toString();
 
             System.out.println(json);
 
@@ -121,10 +121,10 @@ public class ConsultasAfiliados extends javax.swing.JInternalFrame {
         mdlTblAfiliados.setNumRows(1);
 
         mdlTblAfiliados.setValueAt("1", 0, 0);
-        mdlTblAfiliados.setValueAt(nombres, 0, 1);
-        mdlTblAfiliados.setValueAt(apellidos, 0, 2);
-        mdlTblAfiliados.setValueAt(direccion, 0, 3);
-        mdlTblAfiliados.setValueAt(telefono, 0, 4);
+        mdlTblAfiliados.setValueAt(estado, 0, 1);
+        mdlTblAfiliados.setValueAt(monto, 0, 2);
+        mdlTblAfiliados.setValueAt(acumulado, 0, 3);
+        mdlTblAfiliados.setValueAt(pendiente, 0, 4);
 
     }
 
@@ -358,19 +358,19 @@ public class ConsultasAfiliados extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formMouseClicked
 
     private void btnGetServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGetServiceActionPerformed
-         
+
         if (txtCodigoPaciente.getText().toString().equals("")) {
             JOptionPane.showMessageDialog(this, "El código no puede ser vacío");
             return;
         } else {
             try {
-                consultarAfiliados(txtCodigoPaciente.getText().toString(), "");
+                consultarAfiliados("", "");
             } catch (IOException ex) {
                 Logger.getLogger(ConsultasAfiliados.class.getName()).log(Level.SEVERE, null, ex);
             } catch (JSONException ex) {
                 Logger.getLogger(ConsultasAfiliados.class.getName()).log(Level.SEVERE, null, ex);
             }
-            //cargarModeloTabla();
+            cargarModeloTabla();
         }
 
 
