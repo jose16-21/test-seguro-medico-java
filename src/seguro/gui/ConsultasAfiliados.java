@@ -72,6 +72,7 @@ public class ConsultasAfiliados extends javax.swing.JInternalFrame {
     private void consultarAfiliados(String codigo, String fecha) throws IOException, JSONException {
 
         try {
+            
             JSONObject json = readJsonFromUrl("http://localhost:54335/api/Java/"+ codigo+"/"+fecha);
 
 
@@ -79,14 +80,14 @@ public class ConsultasAfiliados extends javax.swing.JInternalFrame {
            // apellidos = json.get("apellidos").toString();
            // direccion = json.get("direccion").toString();
           //  telefono = json.get("telefono").toString();
-          JOptionPane.showMessageDialog(this,json.toString());
+         // JOptionPane.showMessageDialog(this,json.toString());
 
             estado = json.get("estado").toString();
             monto = json.get("deducible").toString();
             acumulado = json.get("totalAcumulado").toString();
             pendiente = json.get("pendiente").toString();
             
-              JOptionPane.showMessageDialog(this,estado+','+ monto+','+acumulado+','+pendiente);
+             // JOptionPane.showMessageDialog(this,estado+','+ monto+','+acumulado+','+pendiente);
 
             System.out.println(json);
 
