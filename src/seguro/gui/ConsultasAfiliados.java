@@ -36,16 +36,16 @@ public class ConsultasAfiliados extends javax.swing.JInternalFrame {
     };
 
     TableCellRenderer rendererFromHeader;
-    String nombres;
-    String apellidos;
-    String direccion;
-    String telefono;
+    String estado;
+    String monto;
+    String acumulado;
+    String pendiente;
 
     public ConsultasAfiliados() {
         initComponents();
         cargarColumnasTabla();
         jProgressBarPersonas.setVisible(false);
-        
+
         txtCodigoPaciente.setText("");
         //cargarModeloTabla();
     }
@@ -74,11 +74,19 @@ public class ConsultasAfiliados extends javax.swing.JInternalFrame {
         try {
             JSONObject json = readJsonFromUrl("http://localhost:54335/api/Java/"+ codigo+"/"+fecha);
 
+<<<<<<< HEAD
             //nombres = json.get("nombres").toString();
            // apellidos = json.get("apellidos").toString();
            // direccion = json.get("direccion").toString();
           //  telefono = json.get("telefono").toString();
           JOptionPane.showMessageDialog(this,json.toString());
+=======
+            estado = json.get("estado").toString();
+            monto = json.get("monto").toString();
+            acumulado = json.get("acumulado").toString();
+            pendiente = json.get("pendiente").toString();
+
+>>>>>>> 064e67ccc77abca3c1d36e3d335fab5d2438e476
             System.out.println(json);
 
         } catch (IOException ex) {
@@ -123,10 +131,10 @@ public class ConsultasAfiliados extends javax.swing.JInternalFrame {
         mdlTblAfiliados.setNumRows(1);
 
         mdlTblAfiliados.setValueAt("1", 0, 0);
-        mdlTblAfiliados.setValueAt(nombres, 0, 1);
-        mdlTblAfiliados.setValueAt(apellidos, 0, 2);
-        mdlTblAfiliados.setValueAt(direccion, 0, 3);
-        mdlTblAfiliados.setValueAt(telefono, 0, 4);
+        mdlTblAfiliados.setValueAt(estado, 0, 1);
+        mdlTblAfiliados.setValueAt(monto, 0, 2);
+        mdlTblAfiliados.setValueAt(acumulado, 0, 3);
+        mdlTblAfiliados.setValueAt(pendiente, 0, 4);
 
     }
 
@@ -360,22 +368,26 @@ public class ConsultasAfiliados extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formMouseClicked
 
     private void btnGetServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGetServiceActionPerformed
-         
+
         if (txtCodigoPaciente.getText().toString().equals("")) {
             JOptionPane.showMessageDialog(this, "El código no puede ser vacío");
             return;
         } else {
             try {
+<<<<<<< HEAD
                  SimpleDateFormat dcn = new SimpleDateFormat("yyyy-MM-dd");
     String date = dcn.format(txtFechaNacimiento.getDate() );
     
                 consultarAfiliados(txtCodigoPaciente.getText().toString(), date);
+=======
+                consultarAfiliados("", "");
+>>>>>>> 064e67ccc77abca3c1d36e3d335fab5d2438e476
             } catch (IOException ex) {
                 Logger.getLogger(ConsultasAfiliados.class.getName()).log(Level.SEVERE, null, ex);
             } catch (JSONException ex) {
                 Logger.getLogger(ConsultasAfiliados.class.getName()).log(Level.SEVERE, null, ex);
             }
-            //cargarModeloTabla();
+            cargarModeloTabla();
         }
 
 
