@@ -85,6 +85,8 @@ public class ConsultasAfiliados extends javax.swing.JInternalFrame {
             monto = json.get("monto").toString();
             acumulado = json.get("acumulado").toString();
             pendiente = json.get("pendiente").toString();
+            
+              JOptionPane.showMessageDialog(this,estado+','+ monto+','+acumulado+','+pendiente);
 
             System.out.println(json);
 
